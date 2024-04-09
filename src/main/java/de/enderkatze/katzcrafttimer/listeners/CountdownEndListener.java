@@ -6,6 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import java.util.List;
+
 public class CountdownEndListener implements Listener {
 
     @EventHandler
@@ -15,11 +17,10 @@ public class CountdownEndListener implements Listener {
         Main.getInstance().getTimer().setBackwards(false);
         Bukkit.broadcastMessage(Main.getInstance().getPrefix() + Main.getInstance().getLanguage().getString("actionbarTimeOverMessage"));
 
-        if(Main.getInstance().getConfig().getString("countdownFinishedCommand") != null) {
+        List<String> commands = Main.getInstance().getConfig().getStringList("countdownFinishedCommands");
 
-            String command = Main.getInstance().getConfig().getString("countdownFinishedCommand");
-
-            if(command.startsWith("/")) {
+        for (String command : commands) {
+            if (command.startsWith("/")) {
                 command = command.replace("/", "");
             }
 
